@@ -47,7 +47,11 @@ Can be found in Web.Config file in connectionStrings tags.
 '~\DbScript\InfoTrackSQLScript.sql'.
 
 ### Unit Test
-with 0 ranks
-<img width="730" alt="image" src="https://github.com/mnabeelahsan/InfoTrackUk_RankerApp/assets/141588155/8f832070-ae17-43d7-b9e9-d2a62cbb7614">
+
+1. with 0 ranks for infotrack uk.
+2. tried with gov.uk; Data coming through but struggling with which attribute gives correct position/rank.
+
+<img width="896" alt="image" src="https://github.com/mnabeelahsan/InfoTrackUk_RankerApp/assets/141588155/8f832070-ae17-43d7-b9e9-d2a62cbb7614">
+<img width="896" alt="image" src="https://github.com/mnabeelahsan/InfoTrackUk_RankerApp/assets/141588155/82a8c989-887d-47e2-898d-4a9c74e91713">
 
 
