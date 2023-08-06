@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.IO;
+using System.Net;
 
 namespace InfoTrackUkApp.Services
 {
@@ -6,14 +8,22 @@ namespace InfoTrackUkApp.Services
     {
         public string ScarpeUrlData(string keywordToSearch, string searchEngineUrl)
         {
-            string result;
-            using (var webClient = new WebClient())
+            string content = string.Empty;
+            try
             {
-                webClient.Proxy = null;
                 string googleUrl = $"{searchEngineUrl}search?num=100&q={WebUtility.UrlEncode(keywordToSearch)}";
-                result = webClient.DownloadString(googleUrl);
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(googleUrl);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    content = reader.ReadToEnd();
+                }
             }
-            return result;
+            catch (Exception)
+            {
+            }
+            return content;
         }
     }
 }
