@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Info Track UK Search App";
+}
+
+<h2>Info Track UK Search App - SEO</h2>
+
+<div ng-app="infoTrackApp" ng-controller="InfoTrackController">
+
+    <div ng-if="error !== null">
+        <p class="error">{{ error }}</p>
+    </div>
+
+    <form ng-submit="getInfoTrackRanks();">
+        <label for="keywordToSearch">Keyword:</label>
+        <input type="text" ng-model="keywordToSearch" required />
+        <label for="url">URL:</label>
+        <input type="text" ng-model="url" required />
+        <label for="selectedSearchEngine">Search Engine:</label>
+        <select ng-model="selectedSearchEngine">
+            <option ng-repeat="se in searchEngines" value="{{se.name}}">{{se.name}}</option>
+        </select>
+        <button type="submit">Get Ranks</button>
+
+    </form>
+
+    <div ng-if="ranks !== null">
+        <p>URL Ranks: {{ ranks }}</p>
+    </div>
+
+    <a class="click-here" ng-click="getSearchResultsHistory()">Click here to see search results history</a>
+    <div ng-if="show == true">
+        <div ng-if="searchResultsList.length == 0">
+            <p class="error">No Search Results found.</p>
+        </div>
+
+        <div ng-if="searchResultsList.length > 0">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Search Engine</th>
+                        <th>Keyword</th>
+                        <th>URL</th>
+                        <th>Ranks</th>
+                        <th>Ranked Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in searchResultsList">
+                        <td>{{$index+1}}</td>
+                        <td>{{item.SearchEngineName}}</td>
+                        <td>{{item.KeywordToSearch}}</td>
+                        <td>{{item.Url}}</td>
+                        <td>{{item.Ranks}}</td>
+                        <td>{{item.SearchDate}}  </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

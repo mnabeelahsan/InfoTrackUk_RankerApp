@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="InfoTrackSEOAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SearchResults">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SearchEngineName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="KeywordToSearch" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="600" Nullable="false" />
+          <Property Name="Ranks" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SearchDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Function Name="AddSearchResults" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SearchEngineName" Type="varchar" Mode="In" />
+          <Parameter Name="KeywordToSearch" Type="nvarchar" Mode="In" />
+          <Parameter Name="Url" Type="nvarchar" Mode="In" />
+          <Parameter Name="Ranks" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAllSearchResults" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="InfoTrackSEOAppModelStoreContainer">
+          <EntitySet Name="SearchResults" EntityType="Self.SearchResults" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InfoTrackSEOAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="SearchResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SearchEngineName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KeywordToSearch" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="600" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ranks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SearchDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="InfoTrackSEOAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SearchResults" EntityType="Self.SearchResult" />
+          <FunctionImport Name="AddSearchResults">
+            <Parameter Name="SearchEngineName" Mode="In" Type="String" />
+            <Parameter Name="KeywordToSearch" Mode="In" Type="String" />
+            <Parameter Name="Url" Mode="In" Type="String" />
+            <Parameter Name="Ranks" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllSearchResults" ReturnType="Collection(InfoTrackSEOAppModel.GetAllSearchResults_Result)" />
+        </EntityContainer>
+        <ComplexType Name="GetAllSearchResults_Result">
+          <Property Type="String" Name="SearchEngineName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="KeywordToSearch" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="Url" Nullable="false" MaxLength="600" />
+          <Property Type="String" Name="Ranks" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="SearchDate" Nullable="false" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InfoTrackSEOAppModelStoreContainer" CdmEntityContainer="InfoTrackSEOAppEntities">
+          <EntitySetMapping Name="SearchResults">
+            <EntityTypeMapping TypeName="InfoTrackSEOAppModel.SearchResult">
+              <MappingFragment StoreEntitySet="SearchResults">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SearchEngineName" ColumnName="SearchEngineName" />
+                <ScalarProperty Name="KeywordToSearch" ColumnName="KeywordToSearch" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Ranks" ColumnName="Ranks" />
+                <ScalarProperty Name="SearchDate" ColumnName="SearchDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddSearchResults" FunctionName="InfoTrackSEOAppModel.Store.AddSearchResults" />
+          <FunctionImportMapping FunctionImportName="GetAllSearchResults" FunctionName="InfoTrackSEOAppModel.Store.GetAllSearchResults">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InfoTrackSEOAppModel.GetAllSearchResults_Result">
+                <ScalarProperty Name="SearchEngineName" ColumnName="SearchEngineName" />
+                <ScalarProperty Name="KeywordToSearch" ColumnName="KeywordToSearch" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Ranks" ColumnName="Ranks" />
+                <ScalarProperty Name="SearchDate" ColumnName="SearchDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
