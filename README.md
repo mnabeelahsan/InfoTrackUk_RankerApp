@@ -45,3 +45,8 @@ Can be found in Web.Config file in connectionStrings tags.
 1. Replace 'data source' in connection string to your own SQL server connection name and 'initial catalog' to Database name.
 2. SQL scripts to execute can be found in project at path
 '~\DbScript\InfoTrackSQLScript.sql'.
+
+### Unit Test
+with 0 ranks
+<img width="730" alt="image" src="https://github.com/mnabeelahsan/InfoTrackUk_RankerApp/assets/141588155/8f832070-ae17-43d7-b9e9-d2a62cbb7614">
+
