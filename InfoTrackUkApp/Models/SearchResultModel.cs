@@ -7,6 +7,7 @@ namespace InfoTrackUkApp.Models
 {
     public class SearchResultModel
     {
+        //model class
             public string SearchEngineName { get; set; }
             public string KeywordToSearch { get; set; }
             public string Url { get; set; }
