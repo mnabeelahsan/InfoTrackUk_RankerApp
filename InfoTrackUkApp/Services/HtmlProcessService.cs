@@ -1,32 +1,41 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Text.RegularExpressions;
 
 namespace InfoTrackUkApp.Services
 {
     public class HtmlProcessService
     {
-        public string GetRanks(string searchResults, string url)
+        public string GetRanks(string htmlContent, string url)
         {
-            string pattern = $@"\b{Regex.Escape(url)}\b";
-            MatchCollection matches = Regex.Matches(searchResults, pattern, RegexOptions.IgnoreCase);
+            string pattern = @"<cite[^>]*>(.*?)<\/cite>";
+            MatchCollection matches = Regex.Matches(htmlContent, pattern, RegexOptions.Singleline);
 
-            string ranks = "";
+            List<string> rankList = new List<string>();
             int matchCount = matches.Count;
+
             if (matchCount > 0)
             {
-                for (int i = 0; i < matchCount; i++)
+                foreach (Match match in matches)
                 {
-                    ranks += matches[i].Index.ToString();
-                    if (i < matchCount - 1)
+                    string citeTagContent = match.Groups[1].Value;
+                    // Remove any HTML tags from the content
+                    string textContent = Regex.Replace(citeTagContent, @"<.*?>", string.Empty);
+                    if (textContent.Contains(url) == true)
                     {
-                        ranks += ",";
+                        rankList.Add(match.Index.ToString());
                     }
+                    
                 }
-                return ranks;
+                return string.Join(",", rankList);
             }
             else
             {
-                return "0"; // URL not found in results
+                return "0";
             }
+            
         }
     }
 }

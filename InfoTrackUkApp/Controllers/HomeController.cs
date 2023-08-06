@@ -46,8 +46,8 @@ namespace InfoTrackUkApp.Controllers
                     return Json(new { Error = "Keyword,URL and Search Engine are required" });
                 }
                 string searchEngineUrl = _searchEngineDecisionService.GetSearchEngineUrl(searchEngine);
-                string searchResults = _webScraperService.ScarpeUrlData(keywordToSearch,searchEngineUrl);
-                string ranks = _htmlProcessService.GetRanks(searchResults, url);
+                string htmlContent = _webScraperService.ScarpeUrlData(keywordToSearch,searchEngineUrl);
+                string ranks = _htmlProcessService.GetRanks(htmlContent, url);
 
                 if (string.IsNullOrEmpty(ranks) == true)
                 {
